@@ -1,0 +1,155 @@
+<style>
+    .inventory {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 20px;
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid #4D3012;
+      border-radius: 10px;
+      background-color: #E4D6BF;
+    }
+
+    .item {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      background: #EEECDD;
+      border: 3px solid #4D3012;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .item img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    .tooltip {
+      visibility: hidden;
+      background: #4D3012;
+      color: #EEECDD;
+      text-align: center;
+      padding: 5px 10px;
+      border-radius: 5px;
+      position: absolute;
+      bottom: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .item:hover .tooltip {
+      visibility: visible;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-content {
+      background: #EEECDD;
+      color: #3e2d17;
+      border: 5px solid #4D3012;
+      border-radius: 10px;
+      padding: 20px;
+      max-width: 400px;
+      margin: 120px auto;
+      text-align: center;
+    }
+
+    .modal-content img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 15px;
+    }
+
+    .modal-content h2 {
+      font-size: 24px;
+      margin: 10px 0;
+    }
+
+    .modal-content p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .modal-buttons {
+      margin-top: 20px;
+    }
+
+    .btn {
+      background: #4D3012;
+      color: #EEECDD;
+      padding: 10px 16px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'Uncial Antiqua', cursive;
+    }
+
+    .btn:hover {
+      background: #3A220D;
+    }
+</style>
+<div class="inventory">
+    <div class="item" onclick="openModal('Poción de Vida', 'https://ih1.redbubble.net/image.5158428761.3284/flat,750x,075,f-pad,750x1000,f8f8f8.jpg', 'Restaura 50 puntos de salud al instante.')">
+      <span class="tooltip">Poción de Vida</span>
+      <img src="https://ih1.redbubble.net/image.5158428761.3284/flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt="Poción">
+    </div>
+
+    <div class="item" onclick="openModal('Espada Rúnica', 'https://i.imgur.com/vS5fhhG.png', 'Espada mágica de fuego +2. Ideal contra no-muertos.')">
+      <span class="tooltip">Espada Rúnica</span>
+      <img src="https://i.imgur.com/vS5fhhG.png" alt="Espada">
+    </div>
+
+    <div class="item" onclick="openModal('Mapa Antiguo', 'https://i.imgur.com/U3D4OU1.png', 'Un mapa que revela una ruta secreta en la Montaña Roja.')">
+      <span class="tooltip">Mapa Antiguo</span>
+      <img src="https://i.imgur.com/U3D4OU1.png" alt="Mapa">
+    </div>
+  </div>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <center>
+            <img id="modal-image" src="" alt="">
+        </center>
+      
+      <h2 id="modal-title">Objeto</h2>
+      <p id="modal-desc">Descripción del objeto mágico.</p>
+      <div class="modal-buttons">
+        <button class="btn" onclick="useItem()">Usar objeto</button>
+        <button class="btn" onclick="closeModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal(nombre, imagen, descripcion) {
+      document.getElementById('modal-title').innerText = nombre;
+      document.getElementById('modal-image').src = imagen;
+      document.getElementById('modal-desc').innerText = descripcion;
+      document.getElementById('modal').style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+
+    function useItem() {
+      alert("✨ Has usado el objeto con éxito.");
+      closeModal();
+    }
+  </script>

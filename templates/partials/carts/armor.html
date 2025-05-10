@@ -1,0 +1,95 @@
+<style>
+    .equipment-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #EEECDD;
+        border: 6px double #4D3012;
+        padding: 30px;
+        border-radius: 12px;
+        gap: 40px;
+        max-width: 1000px;
+        margin: 40px auto;
+        flex-wrap: wrap;
+        font-family: 'Uncial Antiqua', serif;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .equipment-column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .equip-slot {
+        width: 80px;
+        height: 80px;
+        background-color: #EEECDD;
+        border: 3px solid #4D3012;
+        border-radius: 10px;
+        box-shadow: inset 0 0 10px #b8a889;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .equip-slot:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+
+    .equip-slot img {
+        max-width: 70%;
+        max-height: 70%;
+        pointer-events: none;
+    }
+
+    .character-section .character-image {
+        width: 120px;
+        height: auto;
+        border: 4px solid #4D3012;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 768px) {
+        .equipment-wrapper {
+            flex-direction: column;
+            gap: 30px;
+        }
+    }
+</style>
+<div class="equipment-wrapper">
+    <!-- Sección 1: Armadura -->
+    <div class="equipment-column armor-section">
+        <div class="equip-slot" title="Casco">
+            <img src="https://art.pixilart.com/a467762d7a7fc77.png" alt="Casco">
+        </div>
+        <div class="equip-slot" title="Pechera">
+            <img src="https://s3-eu-west-2.amazonaws.com/dungeon20/images/2095/original-88420ada1963844dff5f49947696b4788088a561.png?1637235983" alt="Pechera">
+        </div>
+        <div class="equip-slot" title="Pantalones">
+            <img src="https://p.novaskin.me/1550443246.png" alt="Pantalones">
+        </div>
+        <div class="equip-slot" title="Botas">
+            <img src="https://www.pngkit.com/png/full/345-3451010_diamond-armor-minecraft-botas-minecraft.png" alt="Botas">
+        </div>
+    </div>
+
+    <!-- Sección 2: Imagen del personaje -->
+    <div class="equipment-column character-section">
+        <img src="https://i.pinimg.com/1200x/43/24/3e/43243eece5be9c4cb3ac2682e63df1d9.jpg" alt="Personaje" class="character-image">
+    </div>
+
+    <!-- Sección 3: Armas -->
+    <div class="equipment-column weapons-section">
+        <div class="equip-slot" title="Arma 1">
+            <img src="https://preview.redd.it/uz55kmtfv8c51.png?auto=webp&s=6c266a8072a8e010114d6d313fba20c2ad3d6245" alt="Arma 1">
+        </div>
+        <div class="equip-slot" title="Arma 2">
+            <img src="https://png.pngtree.com/png-vector/20240513/ourmid/pngtree-magic-ring-with-electricity-around-dungeons-and-dragons-style-png-image_12450744.png" alt="Arma 2">
+        </div>
+    </div>
+</div>
