@@ -1,6 +1,6 @@
 # app.py
 from flask import Flask, jsonify, render_template
-#from models  import db
+from models  import *
 from db_functions import insertar_jugador, insertar_escenario, obtener_jugadores
 import os
 
