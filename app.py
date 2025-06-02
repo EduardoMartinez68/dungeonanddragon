@@ -1,14 +1,19 @@
 # app.py
 from flask import Flask, jsonify, render_template
-from db import get_connection
+#from models  import db
+from db_functions import insertar_jugador, insertar_escenario, obtener_jugadores
+import os
 
-app = Flask(__name__)
+app = Flask(__name__) #run the app
+
+#-----------------------------------------database-----------------------------------------
+
+
 
 #-------------login------------------
 @app.route('/')
 def home():
-    return render_template('index.html')
-
+    return render_template('login.html')
 
 
 
@@ -21,24 +26,15 @@ def home():
 def cart():
     return render_template('cart.html')
 
+#-------------cart------------------
+@app.route('/dungeon_master')
+def dungeon_master():
+    return render_template('dungeon_master.html')
 
+@app.route('/combat')
+def combat():
+    return render_template('combat.html')
 
-
-
-
-
-
-
-@app.route('/usuarios')
-def listar_usuarios():
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT id, nombre FROM usuarios")  # Suponiendo una tabla `usuarios`
-    rows = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    usuarios = [{'id': row[0], 'nombre': row[1]} for row in rows]
-    return jsonify(usuarios)
 
 if __name__ == '__main__':
     app.run(debug=True)

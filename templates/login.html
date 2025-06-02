@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Dungeon Game - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'MedievalSharp', cursive;
+      height: 100vh;
+      background: url('https://wallpapers.com/images/featured/fondos-de-dungeons-and-dragons-1hi6uuqclvdwzbtq.jpg') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+    }
+
+    /* Fondo oscuro con opacidad */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #f8f1dc;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 48px;
+      margin-bottom: 40px;
+      color: #e9c46a;
+      text-shadow: 2px 2px 5px #000;
+    }
+
+.btn {
+  display: inline-block;
+  width: 280px;
+  padding: 18px 25px;
+  margin: 20px;
+  font-size: 22px;
+  font-family: 'MedievalSharp', cursive;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-align: center;
+  border: 3px solid #caa85d;
+  border-radius: 12px;
+  background: linear-gradient(to bottom, #3e2f1c, #2a1e12);
+  color: #f3e4bc;
+  box-shadow: 0 0 15px rgba(202, 168, 93, 0.6), 0 0 30px rgba(0, 0, 0, 0.7) inset;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: shimmer 3s infinite linear;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.btn:hover {
+  background: linear-gradient(to bottom, #5a4228, #362618);
+  transform: scale(1.08);
+  box-shadow: 0 0 25px rgba(202, 168, 93, 0.9), 0 0 40px rgba(0, 0, 0, 0.8) inset;
+}
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Dungeon Game</h1>
+    <a href="dungeon_master" class="btn">⚔️ Ser Dungeon Master</a>
+    <a href="cart" class="btn">🛡️ Ser Jugador</a>
+  </div>
+
+</body>
+</html>

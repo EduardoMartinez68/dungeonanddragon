@@ -1,0 +1,64 @@
+.btn-combate {
+    font-family: 'MedievalSharp', cursive;
+    background: linear-gradient(to bottom, #59331d, #3c1e0d);
+    border: 3px solid #a67c52;
+    color: #f5e8c7;
+    padding: 15px 30px;
+    font-size: 20px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(245, 232, 199, 0.4);
+    transition: all 0.3s ease-in-out;
+    text-shadow: 1px 1px 2px #000;
+}
+
+.btn-combate:hover {
+    background: linear-gradient(to bottom, #7a4e2a, #4a2915);
+    box-shadow: 0 0 20px rgba(255, 215, 137, 0.8);
+    transform: scale(1.05);
+}
+
+
+/* Fuente medieval */
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
+.btn-medieval {
+    font-family: 'MedievalSharp', cursive;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-image: url('https://static.vecteezy.com/system/resources/thumbnails/000/109/425/small_2x/free-vector-watercolor-paper-texture.jpg');
+    background-size: cover;
+    background-blend-mode: overlay;
+    color: #f5f5dc;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    text-shadow: 1px 1px 2px #000;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Hover simplemente oscurece un poco */
+.btn-medieval:hover {
+    opacity: 0.8;
+}
+
+/* Ver - Café claro */
+.btn-ver {
+    background-color: #7b5e42;
+}
+
+/* Editar - Café oscuro */
+.btn-editar {
+    background-color: #4a2d17;
+}
+
+/* Eliminar - Rojo oscuro */
+.btn-eliminar {
+    background-color: #6e1f1f;
+}
+
+/* Crear - Verde oscuro */
+.btn-crear {
+    background-color: #2f5e2f;
+}

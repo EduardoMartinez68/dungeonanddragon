@@ -1,0 +1,34 @@
+<div class="main">
+    <!-- TABLERO DE CARTAS -->
+    <div class="tablero">
+        <div class="carta" onclick="mostrarPopup('Aldor', 100, 60, 40)">
+            <img src="static/img/character/1.png" alt="Jugador">
+            <h3>Aldor</h3>
+            <p>❤️ Vida: 100</p>
+            <p>🔮 Maná: 60</p>
+            <p>🛡️ Armadura: 40</p>
+            <button class="btn-medieval btn-ver">Ver Informacion</button>
+        </div>
+    </div>
+
+    <!-- ESCENARIO -->
+    <div class="escenario">
+        <h3>Escenario</h3>
+        <p><strong>Lugar:</strong> Bosque de Sombras</p>
+        <p><strong>Tiempo:</strong> Noche</p>
+        <p><strong>Clima:</strong> Lluvioso</p>
+        <br><br>
+        <center><button class="btn-combate">Crear Combate</button></center>
+    </div>
+</div>
+
+<!-- POPUP -->
+<div id="popup" class="popup">
+    <div class="popup-contenido">
+        <span class="cerrar" onclick="cerrarPopup()">&times;</span>
+        <h2 id="popup-nombre">Nombre</h2>
+        <p><strong>Vida:</strong> <span id="popup-vida"></span></p>
+        <p><strong>Maná:</strong> <span id="popup-mana"></span></p>
+        <p><strong>Armadura:</strong> <span id="popup-armadura"></span></p>
+    </div>
+</div>
