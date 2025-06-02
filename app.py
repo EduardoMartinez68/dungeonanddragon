@@ -1,8 +1,7 @@
 # app.py
 from flask import Flask, jsonify, render_template
 from models  import *
-from db_functions import insertar_jugador, insertar_escenario, obtener_jugadores
-import os
+from database.playerdb import *
 
 app = Flask(__name__) #run the app
 
@@ -22,6 +21,10 @@ def home():
 
 
 #-------------cart------------------
+@app.route('/selectCard')
+def selectCard():
+    return render_template('selectCard.html')
+
 @app.route('/cart')
 def cart():
     return render_template('cart.html')
@@ -29,7 +32,8 @@ def cart():
 #-------------cart------------------
 @app.route('/dungeon_master')
 def dungeon_master():
-    return render_template('dungeon_master.html')
+    players=get_all_the_players()
+    return render_template('dungeon_master.html',players=players)
 
 @app.route('/combat')
 def combat():

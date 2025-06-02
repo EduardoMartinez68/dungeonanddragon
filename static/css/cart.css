@@ -121,37 +121,6 @@ label {
     color: #5D3A16;
 }
 
-input[type="text"],
-input[type="number"],
-input[type="email"] {
-    font-family: 'Uncial Antiqua', serif;
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid #5A4928;
-    color: #5D3A16;
-    font-size: 1em;
-    padding: 5px 10px;
-    outline: none;
-    width: 250px;
-}
-
-input::placeholder {
-    color: #A67C52;
-}
-
-@media (max-width: 600px) {
-    .form-group {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    input[type="text"],
-    input[type="number"],
-    input[type="email"] {
-        width: 100%;
-    }
-}
-
 .btn-medieval {
     margin-top: 20px;
     padding: 10px 20px;
@@ -375,74 +344,9 @@ input::placeholder {
 }
 
 
-/*tabs*/
-.tabs {
-    display: flex;
-    border-bottom: 4px solid #5a3e1b;
-    margin-bottom: 20px;
-  }
-
-  .tab {
-    background: #a4753b;
-    padding: 10px 20px;
-    margin-right: 5px;
-    text-decoration: none;
-    color: #fff;
-    font-weight: bold;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border: 2px solid #5a3e1b;
-    border-bottom: none;
-  }
-
-  .tab-content {
-    display: none;
-  }
-  
-  .tab.active {
-    background-color: #c08c51;
-    color: #fff;
-    font-weight: bold;
-  }
-
-  .tab-content.active {
-    display: block;
-  }
-
-  .tab:hover {
-    background: #c08c51;
-  }
-
-  .tab:active {
-    transform: scale(0.98);
-  }
-
-  .tab-content {
-    display: none;
-    border-radius: 0 0 10px 10px;
-  }
-
-  .tab-content:target {
-    display: block;
-    animation: fadeIn 0.4s ease-in-out;
-  }
-
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
-  }
-
-  @media (max-width: 600px) {
-    .tab {
-      flex: 1 1 100%; /* Ocupan todo el ancho disponible en móviles */
-      margin-right: 0;
-      margin-bottom: 5px;
-    }
-  
-    .tabs {
-      flex-direction: column;
-      align-items: stretch;
-    }
   }
 
 

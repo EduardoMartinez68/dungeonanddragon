@@ -59,6 +59,152 @@
 }
 
 /* Crear - Verde oscuro */
-.btn-crear {
+.btn-add {
     background-color: #2f5e2f;
 }
+
+input[type="text"],
+input[type="number"],
+input[type="email"] {
+    font-family: 'Uncial Antiqua', serif;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #5A4928;
+    color: #5D3A16;
+    font-size: 1em;
+    padding: 5px 10px;
+    outline: none;
+    width: 250px;
+}
+
+input::placeholder {
+    color: #A67C52;
+}
+
+@media (max-width: 600px) {
+    .form-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="email"] {
+        width: 100%;
+    }
+}
+
+
+/*table*/
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
+.table-retro {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  background-color: #1f1a16;
+  font-family: 'MedievalSharp', cursive;
+  color: #f5e9d0;
+  border: 2px solid #af924d;
+  box-shadow: 0 0 12px rgba(255, 223, 135, 0.2);
+  margin-bottom: 2rem;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.table-retro th,
+.table-retro td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid #5a4324;
+}
+
+.table-retro th {
+  background-color: #3a2e22;
+  color: #ffe8a3;
+  text-shadow: 0 0 2px #d2b56d;
+  font-size: 1.1rem;
+}
+
+.table-retro tr:nth-child(even) {
+  background-color: #2b241d;
+}
+
+.table-retro tr:hover {
+  background-color: #403429;
+  color: #fff8dc;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+/* Contenedor responsivo */
+.table-wrapper {
+  overflow-x: auto;
+  margin: 0 auto;
+  padding: 0.5rem;
+}
+
+/*---------------------tabs------------------------*/
+.tabs {
+    display: flex;
+    border-bottom: 4px solid #5a3e1b;
+    margin-bottom: 20px;
+  }
+
+  .tab {
+    background: #a4753b;
+    padding: 10px 20px;
+    margin-right: 5px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: 2px solid #5a3e1b;
+    border-bottom: none;
+  }
+
+  .tab-content {
+    display: none;
+  }
+  
+  .tab.active {
+    background-color: #c08c51;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .tab:hover {
+    background: #c08c51;
+  }
+
+  .tab:active {
+    transform: scale(0.98);
+  }
+
+  .tab-content {
+    display: none;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .tab-content:target {
+    display: block;
+    animation: fadeIn 0.4s ease-in-out;
+  }
+
+  @media (max-width: 600px) {
+    .tab {
+      flex: 1 1 100%; /* Ocupan todo el ancho disponible en móviles */
+      margin-right: 0;
+      margin-bottom: 5px;
+    }
+  
+    .tabs {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }

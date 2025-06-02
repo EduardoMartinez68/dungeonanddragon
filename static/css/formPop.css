@@ -1,0 +1,43 @@
+.pop-form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.pop-form.hidden {
+  display: none;
+}
+
+.pop-form-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+}
+
+.pop-form-content {
+  position: relative;
+  background-color: #C3A680;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 100%;
+  z-index: 10000;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+#close-pop-form {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}

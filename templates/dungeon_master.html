@@ -7,22 +7,29 @@
     <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">
+    
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dungeon_master.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/formPop.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/Styles.css') }}">
+    <style>
+        body{
+            background-color: black;
+        }
+    </style>
 </head>
 
 <body>
 
     <!-- NAVBAR -->
     {% include 'partials/dungeon_master/navbar.html' %}
+    {% include 'partials/dungeon_master/formPop.html' %}
     <br><br>
 
     <!--tabs-->
     <div class="tabs">
         <button class="tab active" data-tab="tab1">Tablero Jugadores</button>
         <button class="tab" data-tab="tabWeapon">Reinos y Escenarios</button>
-        <button class="tab" data-tab="tabWeapon">Misiones</button>
+        <button class="tab" data-tab="tabMissions">Misiones</button>
     </div>
 
     <div id="tab1" class="tab-content active">
@@ -30,12 +37,17 @@
     </div>
 
     <div id="tabWeapon" class="tab-content">
+        
+    </div>
 
+    <div id="tabMissions" class="tab-content">
+        {% include 'partials/dungeon_master/missions.html' %}
     </div>
 
 
-    <script src="{{ url_for('static', filename='js/messagePopCard.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/tab.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dungeon_master/messagePopCard.js') }}" defer ></script>
+    <script src="{{ url_for('static', filename='js/dungeon_master/messagePopForm.js') }}" defer ></script>
+    <script src="{{ url_for('static', filename='js/tab.js') }}" defer ></script>
 </body>
 
 </html>

@@ -1,14 +1,16 @@
 <div class="main">
     <!-- TABLERO DE CARTAS -->
     <div class="tablero">
-        <div class="carta" onclick="mostrarPopup('Aldor', 100, 60, 40)">
-            <img src="static/img/character/1.png" alt="Jugador">
-            <h3>Aldor</h3>
-            <p>❤️ Vida: 100</p>
-            <p>🔮 Maná: 60</p>
-            <p>🛡️ Armadura: 40</p>
-            <button class="btn-medieval btn-ver">Ver Informacion</button>
-        </div>
+        {% for player in players %}
+            <div class="carta" onclick="mostrarPopup('{{ player.name }}', '{{ player.life }}', '{{ player.intelligence }}', '{{ player.defense }}')">
+                <img src="{{ url_for('static', filename='img/character/' + loop.index|string + '.png') }}" alt="{{ player.name }}" loading="lazy">
+                <h3>{{ player.name }}</h3>
+                <p>❤️ Vida: {{ player.life }}</p>
+                <p>🔮 Maná: {{ player.intelligence }}</p>
+                <p>🛡️ Armadura: {{ player.defense }}</p>
+                <button class="btn-medieval btn-ver">Ver Información</button>
+            </div>
+        {% endfor %}
     </div>
 
     <!-- ESCENARIO -->
