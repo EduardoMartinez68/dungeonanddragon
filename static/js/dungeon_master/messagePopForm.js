@@ -1,11 +1,12 @@
 const formTemplates = {
     'create-character': `
         <div id="create-character">
-        <h2>Create Character</h2>
+        <h2>Crear Personaje</h2>
         <hr>
         <form id="form-character">
             <label for="name">Nombre del personaje:</label>
             <input type="text" name="name" placeholder="Character Name" required>
+            <br><br>
 
             <label for="race-select">Raza:</label>
             <select name="race_id" id="race-select" required>
@@ -19,11 +20,15 @@ const formTemplates = {
             <!-- <option value="1">Warrior</option> -->
             </select>
 
+            <br><br>
+            <label for="class-select">Nivel de ataque:</label>
             <input type="number" name="attack" placeholder="Attack Level" min="0" value="0" required>
+            <br><br>
+            <label for="class-select">Nivel de defenza:</label>
             <input type="number" name="defense" placeholder="Defense Level" min="0" value="0" required>
             
-            <br>
-            <button type="submit" class="btn-medieval btn-add">Save</button>
+            <br><br>
+            <button type="submit" class="btn-medieval btn-add btn-success">Save</button>
         </form>
     `,
 

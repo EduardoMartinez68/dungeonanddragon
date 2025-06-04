@@ -1,0 +1,158 @@
+<div id="create-specie" class="form">
+    <h2>Crear Razas</h2>
+    <hr>
+    <form id="form-create-specie">
+        <label for="name">Nombre de la Raza:</label>
+        <input type="text" name="name" id="new-specie-name" placeholder="Ej: Orco" required>
+        <br><br>
+
+        <label for="description">Descripción:</label>
+        <textarea name="description" id="new-specie-description" placeholder="Describe esta clase"></textarea>
+        <br><br>
+
+        <button type="submit" class="btn-medieval btn-add">Guardar Clase</button>
+    </form>
+</div>
+
+<div class="table-wrapper">
+    <table class="table-retro">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="specie-table-body">
+            {% for cls in races %}
+            <tr data-id="{{ cls.id }}">
+                <td class="cls-name">{{ cls.name }}</td>
+                <td class="cls-desc">{{ cls.description }}</td>
+                <td><button class="btn-medieval btn-editar btn-editar-specie">Editar</button></td>
+                <td><button class="btn-medieval btn-eliminar btn-eliminar-species">Eliminar</button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div id="pop-edit-specie" class="modal" style="display:none;">
+    <div class="modal-content">
+        <h3>Editar Raza</h3>
+        <input type="hidden" id="edit-id-specie">
+        <label>Nombre</label>
+        <input type="text" id="edit-name-specie">
+        <br><br>
+        <label>Descripción</label>
+        <textarea id="edit-description-specie"></textarea>
+        <br><br>
+        <button onclick="submitEditspecie()" class="btn-medieval btn-editar">Guardar</button>
+        <button onclick="closeEditspecie()" class="btn-medieval btn-eliminar">Cancelar</button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('create-specie').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('new-specie-name').value.trim();
+            const description = document.getElementById('new-specie-description').value.trim();
+
+            fetch('/create-races', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, description })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        // Crear nueva fila
+                        const tbody = document.getElementById('specie-table-body');
+                        const newRow = document.createElement('tr');
+                        newRow.setAttribute('data-id', data.id);
+                        newRow.innerHTML = `
+                            <td class="cls-name">${name}</td>
+                            <td class="cls-desc">${description}</td>
+                            <td><button class="btn-medieval btn-editar btn-editar-specie">Editar</button></td>
+                            <td><button class="btn-medieval btn-eliminar btn-eliminar-specie">Eliminar</button></td>
+                        `;
+                        tbody.appendChild(newRow);
+
+                        // Volver a vincular botones nuevos
+                        newRow.querySelector('.btn-editar').addEventListener('click', () => openEditModal(newRow));
+                        newRow.querySelector('.btn-eliminar').addEventListener('click', () => deleteRow(newRow));
+
+                        // Limpiar formulario
+                        document.getElementById('form-create-class').reset();
+                    } else {
+                        alert('Error al crear la clase');
+                    }
+                });
+        });
+
+        // Eliminar
+        document.querySelectorAll('.btn-eliminar-species').forEach(button => {
+            button.addEventListener('click', () => {
+                const row = button.closest('tr');
+                const id = row.dataset.id;
+
+                if (confirm('¿Estás seguro de que deseas eliminar esta clase?')) {
+                    fetch(`/delete-races/${id}`, { method: 'DELETE' })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                row.remove();
+                            } else {
+                                alert('Error al eliminar la clase.');
+                            }
+                        });
+                }
+            });
+        });
+
+        // Editar
+        document.querySelectorAll('.btn-editar-specie').forEach(button => {
+            button.addEventListener('click', () => {
+                const row = button.closest('tr');
+                const id = row.dataset.id;
+                const name = row.querySelector('.cls-name').textContent;
+                const desc = row.querySelector('.cls-desc').textContent;
+
+                // Cargar datos en modal
+                document.getElementById('edit-id-specie').value = id;
+                document.getElementById('edit-name-specie').value = name;
+                document.getElementById('edit-description-specie').value = desc;
+                document.getElementById('pop-edit-specie').style.display = 'flex';
+            });
+        });
+    });
+
+    function closeEditspecie() {
+        document.getElementById('pop-edit-specie').style.display = 'none';
+    }
+
+    function submitEditspecie() {
+        const id = document.getElementById('edit-id-specie').value;
+        const name = document.getElementById('edit-name-specie').value;
+        const description = document.getElementById('edit-description-specie').value;
+
+        fetch(`/edit-races/${id}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, description })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    const row = document.querySelector(`tr[data-id="${id}"]`);
+                    row.querySelector('.cls-name').textContent = name;
+                    row.querySelector('.cls-desc').textContent = description;
+                    closeEditspecie();
+                } else {
+                    alert('Error al editar la clase.');
+                }
+            });
+    }
+</script>

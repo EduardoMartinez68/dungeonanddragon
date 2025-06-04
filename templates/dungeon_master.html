@@ -30,6 +30,8 @@
         <button class="tab active" data-tab="tab1">Tablero Jugadores</button>
         <button class="tab" data-tab="tabWeapon">Reinos y Escenarios</button>
         <button class="tab" data-tab="tabMissions">Misiones</button>
+        <button class="tab" data-tab="tabSpecies">Razas</button>
+        <button class="tab" data-tab="tabClass">Clases</button>
     </div>
 
     <div id="tab1" class="tab-content active">
@@ -44,6 +46,13 @@
         {% include 'partials/dungeon_master/missions.html' %}
     </div>
 
+    <div id="tabSpecies" class="tab-content">
+        {% include 'partials/dungeon_master/species.html' %}
+    </div>
+
+    <div id="tabClass" class="tab-content">
+        {% include 'partials/dungeon_master/class.html' %}
+    </div>
 
     <script src="{{ url_for('static', filename='js/dungeon_master/messagePopCard.js') }}" defer ></script>
     <script src="{{ url_for('static', filename='js/dungeon_master/messagePopForm.js') }}" defer ></script>

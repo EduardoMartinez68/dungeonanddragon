@@ -1,0 +1,179 @@
+<style>
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+
+    .modal-content {
+        background: #C3A680;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+</style>
+
+<div id="create-class" class="form">
+    <h2>Crear Clase</h2>
+    <hr>
+    <form id="form-create-class">
+        <label for="name">Nombre de la clase:</label>
+        <input type="text" name="name" id="new-class-name" placeholder="Ej: Guerrero" required>
+        <br><br>
+
+        <label for="description">Descripción:</label>
+        <textarea name="description" id="new-class-description" placeholder="Describe esta clase"></textarea>
+        <br><br>
+
+        <button type="submit" class="btn-medieval btn-add">Guardar Clase</button>
+    </form>
+</div>
+
+<div class="table-wrapper">
+    <table class="table-retro">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="classes-table-body">
+            {% for cls in classes %}
+            <tr data-id="{{ cls.id }}">
+                <td class="cls-name">{{ cls.name }}</td>
+                <td class="cls-desc">{{ cls.description }}</td>
+                <td><button class="btn-medieval btn-editar btn-editar-class">Editar</button></td>
+                <td><button class="btn-medieval btn-eliminar btn-eliminar-class">Eliminar</button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div id="pop-edit" class="modal" style="display:none;">
+    <div class="modal-content">
+        <h3>Editar Clase</h3>
+        <input type="hidden" id="edit-id">
+        <label>Nombre</label>
+        <input type="text" id="edit-name">
+        <br><br>
+        <label>Descripción</label>
+        <textarea id="edit-description"></textarea>
+        <br><br>
+        <button onclick="submitEdit()" class="btn-medieval btn-editar">Guardar</button>
+        <button onclick="closeEdit()" class="btn-medieval btn-eliminar">Cancelar</button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('form-create-class').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('new-class-name').value.trim();
+            const description = document.getElementById('new-class-description').value.trim();
+
+            fetch('/create-class', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, description })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        // Crear nueva fila
+                        const tbody = document.getElementById('classes-table-body');
+                        const newRow = document.createElement('tr');
+                        newRow.setAttribute('data-id', data.id);
+                        newRow.innerHTML = `
+                            <td class="cls-name">${name}</td>
+                            <td class="cls-desc">${description}</td>
+                            <td><button class="btn-medieval btn-editar btn-editar-class">Editar</button></td>
+                            <td><button class="btn-medieval btn-eliminar btn-eliminar-class">Eliminar</button></td>
+                        `;
+                        tbody.appendChild(newRow);
+
+                        // Volver a vincular botones nuevos
+                        newRow.querySelector('.btn-editar').addEventListener('click', () => openEditModal(newRow));
+                        newRow.querySelector('.btn-eliminar').addEventListener('click', () => deleteRow(newRow));
+
+                        // Limpiar formulario
+                        document.getElementById('form-create-class').reset();
+                    } else {
+                        alert('Error al crear la clase');
+                    }
+                });
+        });
+
+        // Eliminar
+        document.querySelectorAll('.btn-eliminar-class').forEach(button => {
+            button.addEventListener('click', () => {
+                const row = button.closest('tr');
+                const id = row.dataset.id;
+
+                if (confirm('¿Estás seguro de que deseas eliminar esta clase?')) {
+                    fetch(`/delete-class/${id}`, { method: 'DELETE' })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                row.remove();
+                            } else {
+                                alert('Error al eliminar la clase.');
+                            }
+                        });
+                }
+            });
+        });
+
+        // Editar
+        document.querySelectorAll('.btn-editar-class').forEach(button => {
+            button.addEventListener('click', () => {
+                const row = button.closest('tr');
+                const id = row.dataset.id;
+                const name = row.querySelector('.cls-name').textContent;
+                const desc = row.querySelector('.cls-desc').textContent;
+
+                // Cargar datos en modal
+                document.getElementById('edit-id').value = id;
+                document.getElementById('edit-name').value = name;
+                document.getElementById('edit-description').value = desc;
+                document.getElementById('pop-edit').style.display = 'flex';
+            });
+        });
+    });
+
+    function closeEdit() {
+        document.getElementById('pop-edit').style.display = 'none';
+    }
+
+    function submitEdit() {
+        const id = document.getElementById('edit-id').value;
+        const name = document.getElementById('edit-name').value;
+        const description = document.getElementById('edit-description').value;
+
+        fetch(`/edit-class/${id}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, description })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    const row = document.querySelector(`tr[data-id="${id}"]`);
+                    row.querySelector('.cls-name').textContent = name;
+                    row.querySelector('.cls-desc').textContent = description;
+                    closeEdit();
+                } else {
+                    alert('Error al editar la clase.');
+                }
+            });
+    }
+</script>
