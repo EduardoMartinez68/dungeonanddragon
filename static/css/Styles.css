@@ -232,3 +232,43 @@ input::placeholder {
         border-radius: 10px;
         width: 50%;
     }
+
+
+  /*SELECTS*/
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
+.medieval-select {
+  font-family: 'MedievalSharp', cursive;
+  background: linear-gradient(145deg, #3b2e1e, #5a4a27);
+  color: #f0e6d2;
+  border: 3px solid #7d5a2d;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 1.1rem;
+  box-shadow:
+    inset 2px 2px 5px #83673e,
+    inset -2px -2px 5px #3a2f1a;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 250px;
+}
+
+.medieval-select:hover, 
+.medieval-select:focus {
+  background: linear-gradient(145deg, #5a4a27, #3b2e1e);
+  border-color: #d1b97f;
+  color: #fff8dc;
+  outline: none;
+  box-shadow:
+    0 0 10px #d1b97f,
+    inset 2px 2px 5px #a1824a,
+    inset -2px -2px 5px #3b2e1e;
+}
+
+/* Opcional: estilo para las opciones */
+.medieval-select option {
+  background-color: #5a4a27;
+  color: #f0e6d2;
+  font-family: 'MedievalSharp', cursive;
+  padding: 6px;
+}

@@ -1,54 +1,57 @@
 <style>
-/* Responsive para móviles */
-@media (max-width: 768px) {
-    .image-section img {
-        max-width: 100%;
-        height: auto;
-        display: block;
-        margin: 0 auto;
+    /* Responsive para móviles */
+    @media (max-width: 768px) {
+        .image-section img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .row {
+            flex-direction: column;
+        }
+
+        .form-medieval {
+            background-color: #EEECDD;
+            border: 3px solid #4D3012;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Uncial Antiqua', serif;
+        }
+
     }
-
-  .row {
-    flex-direction: column;
-  }
-
-  .form-medieval {
-  background-color: #EEECDD;
-  border: 3px solid #4D3012;
-  padding: 20px;
-  border-radius: 10px;
-  font-family: 'Uncial Antiqua', serif;
-}
-
-}
 </style>
 <h1>Ficha de Personaje</h1>
 <br><br>
 <div class="row">
     <div class="col">
         <div class="image-section">
-            <img src="{{ url_for('static', filename='img/character/1.png') }}" alt="Personaje D&D">
+            <img src="{{ url_for('static', filename='img/character/' ~ player.id|string ~ '.png') }}" alt="Personaje D&D">
         </div>
     </div>
     <div class="col">
         <form class="form-medieval">
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" placeholder="Tu nombre">
+                <input type="text" id="nombre" value="{{ player.name }}" readonly>
             </div>
             <div class="form-group">
                 <label for="raza">Raza:</label>
-                <input type="text" id="raza" placeholder="Elfo, Humano...">
+                <input type="text" id="raza" value="{{ player.race }}" readonly>
             </div>
             <div class="form-group">
                 <label for="clase">Clase:</label>
-                <input type="text" id="clase" placeholder="Guerrero, Mago...">
+                <input type="text" id="clase" value="{{ player.class }}" readonly>
             </div>
+
             <div class="hp-container">
                 <div class="hp-row">
                     <span class="heart-icon">❤️</span>
                     <div class="hp-bar-outer">
-                        <div class="hp-bar-inner" style="width: 75%;">75 / 100</div>
+                        <div class="hp-bar-inner" id="life-bar" data-life="{{ player.life }}">
+                            {{ player.life }} / 200
+                        </div>
                     </div>
                 </div>
             </div>
@@ -57,10 +60,43 @@
                 <div class="hp-row">
                     <span class="heart-icon">🔮</span>
                     <div class="hp-bar-outer">
-                        <div class="hp-bar-magie" style="width: 75%; background-color: blue;">75 / 100</div>
+                        <div class="hp-bar-magie" id="mana-bar" data-mana="{{ player.mana }}"
+                            style="background-color: blue;">
+                            {{ player.mana }} / 200
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div class="hp-container">
+                <div class="hp-row">
+                    <span class="heart-icon">🛡️</span>
+                    <div class="hp-bar-outer">
+                        <div class="hp-bar-armor" id="armor-bar" data-armor="{{ player.armor }}"
+                            style="background-color: gray;">
+                            {{ player.armor }} / 200
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </form>
     </div>
 </div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function setBarWidth(id, dataAttr) {
+            const bar = document.getElementById(id);
+            const value = parseInt(bar.dataset[dataAttr]) || 0;
+            const percent = Math.min(Math.max((value / 200) * 100, 0), 100);
+            //bar.style.width = percent + "%";
+        }
+
+        setBarWidth("life-bar", "life");
+        setBarWidth("mana-bar", "mana");
+        setBarWidth("armor-bar", "armor");
+    });
+</script>

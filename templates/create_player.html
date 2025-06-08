@@ -1,0 +1,212 @@
+<link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dungeon_master.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/formPop.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Styles.css') }}">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
+.form-container {
+  font-family: 'MedievalSharp', cursive;
+  max-width: 700px;
+  background-color: #CCAC83; /* marrón oscuro */
+  padding: 30px;
+  margin: 40px auto;
+  border-radius: 15px;
+  box-shadow:
+    0 0 15px #d1b97f;
+  color: #f0e6d2;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 2.4rem;
+  text-shadow: 1px 1px 3px #7d5a2d;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 30px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row label {
+  font-weight: bold;
+  margin-bottom: 6px;
+  font-size: 1.1rem;
+  text-shadow: 0 0 3px #5a4a27;
+}
+
+.form-row input[type="text"],
+.form-row input[type="number"],
+.form-row select,
+.form-row textarea {
+  padding: 8px 12px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  border: 2px solid #7d5a2d;
+  background: linear-gradient(145deg, #5a4a27, #3b2e1e);
+  color: #f0e6d2;
+  box-shadow:
+    inset 2px 2px 5px #83673e,
+    inset -2px -2px 5px #3a2f1a;
+  transition: all 0.3s ease;
+  font-family: 'MedievalSharp', cursive;
+}
+
+.form-row input[type="text"]:focus,
+.form-row input[type="number"]:focus,
+.form-row select:focus,
+.form-row textarea:focus {
+  outline: none;
+  border-color: #d1b97f;
+  box-shadow:
+    0 0 10px #d1b97f,
+    inset 2px 2px 5px #a1824a,
+    inset -2px -2px 5px #3b2e1e;
+  background: linear-gradient(145deg, #7d652b, #4e3e11);
+  color: #fff8dc;
+}
+
+.medieval-select {
+  cursor: pointer;
+  width: 100%;
+}
+
+.full-width {
+  grid-column: 1 / -1; /* ocupa las 2 columnas */
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.btn-medieval {
+  font-family: 'MedievalSharp', cursive;
+  padding: 12px 30px;
+  font-size: 1.3rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
+/* Responsive para móviles */
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+</style>
+
+<div class="form-container">
+  <form id="create-player-form" method="POST" action="/create-player">
+    <h2>Crear nuevo jugador</h2>
+
+    <div class="form-row full-width">
+      <label for="name">Nombre:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+
+    <div class="form-grid">
+
+      <div class="form-row">
+        <label for="attack">Ataque:</label>
+        <input type="number" id="attack" name="attack" value="0" required>
+      </div>
+
+      <div class="form-row">
+        <label for="speed">Velocidad:</label>
+        <input type="number" id="speed" name="speed" value="0" required>
+      </div>
+
+      <div class="form-row">
+        <label for="defense">Defensa:</label>
+        <input type="number" id="defense" name="defense" value="0" required>
+      </div>
+
+      <div class="form-row">
+        <label for="life">Vida:</label>
+        <input type="number" id="life" name="life" value="0" required>
+      </div>
+      
+        <div class="form-row">
+            <label for="armor">Armadura (valor):</label>
+            <input type="number" id="armor" name="armor" value="0" required>
+        </div>
+
+        <div class="form-row">
+            <label for="mana">Maná:</label>
+            <input type="number" id="mana" name="mana" value="0" required>
+        </div>
+
+      <div class="form-row">
+        <label for="intelligence">Inteligencia:</label>
+        <input type="number" id="intelligence" name="intelligence" value="0" required>
+      </div>
+
+      <div class="form-row">
+        <label for="charisma">Carisma:</label>
+        <input type="number" id="charisma" name="charisma" value="0" required>
+      </div>
+
+      <div class="form-row">
+        <label for="race_id">Raza:</label>
+        <select id="race_id" name="race_id" required class="medieval-select">
+          <option value="" disabled selected>Selecciona una raza</option>
+          {% for race in races %}
+            <option value="{{ race.id }}">{{ race.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label for="class_id">Clase:</label>
+        <select id="class_id" name="class_id" required class="medieval-select">
+          <option value="" disabled selected>Selecciona una clase</option>
+          {% for cls in classes %}
+            <option value="{{ cls.id }}">{{ cls.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label for="armor_id">Armadura (ID):</label>
+        <input type="number" id="armor_id" name="armor_id">
+      </div>
+    </div> <!-- end form-grid -->
+
+    <div class="form-row full-width">
+      <label for="personality_traits">Rasgos de personalidad:</label>
+      <textarea id="personality_traits" name="personality_traits" rows="3"></textarea>
+    </div>
+
+    <div class="form-row full-width">
+      <label for="ideals">Ideales:</label>
+      <textarea id="ideals" name="ideals" rows="3"></textarea>
+    </div>
+
+    <div class="form-row full-width">
+      <label for="bonds">Vínculos:</label>
+      <textarea id="bonds" name="bonds" rows="3"></textarea>
+    </div>
+
+    <div class="form-row full-width">
+      <label for="flaws">Defectos:</label>
+      <textarea id="flaws" name="flaws" rows="3"></textarea>
+    </div>
+
+    <div class="form-row full-width btn-container">
+      <button type="submit" class="btn-medieval btn-add btn-success">Crear jugador</button>
+    </div>
+  </form>
+</div>

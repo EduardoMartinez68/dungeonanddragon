@@ -117,14 +117,14 @@
 <body>
 
     <div class="container container-form">
-        <form action="">
-            <h1>Eligue tu heroe</h1>
-            <label for="">Escribe el numero del jugador que eres</label>
-            <input type="text" placeholder="Numero del jugador" required>
+        <form method="GET" action="{{ url_for('choose_hero') }}">
+            <h1>Elige tu héroe</h1>
+            <label for="player_id">Escribe el número del jugador que eres</label>
+            <input type="number" name="player_id" placeholder="Número del jugador" required>
             <br><br>
             <button class="btn-medieval btn-add">Jugar</button>
             <br><br><br>
-            <label for="">El numero del jugador te lo dara el dungeon master</label>
+            <label>El número del jugador te lo dará el dungeon master</label>
         </form>
     </div>
 </body>

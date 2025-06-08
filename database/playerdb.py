@@ -10,7 +10,7 @@ def get_all_the_players():
     conn.row_factory = sqlite3.Row  # Para obtener los datos como diccionarios
     cursor = conn.cursor()
 
-    cursor.execute("SELECT name, life, intelligence, defense FROM players")
+    cursor.execute("SELECT * FROM players")
     players = cursor.fetchall()
 
     conn.close()

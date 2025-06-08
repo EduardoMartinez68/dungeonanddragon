@@ -1,17 +1,21 @@
 <div class="main">
     <!-- TABLERO DE CARTAS -->
-    <div class="tablero">
-        {% for player in players %}
-            <div class="carta" onclick="mostrarPopup('{{ player.name }}', '{{ player.life }}', '{{ player.intelligence }}', '{{ player.defense }}')">
-                <img src="{{ url_for('static', filename='img/character/' + loop.index|string + '.png') }}" alt="{{ player.name }}" loading="lazy">
-                <h3>{{ player.name }}</h3>
-                <p>❤️ Vida: {{ player.life }}</p>
-                <p>🔮 Maná: {{ player.intelligence }}</p>
-                <p>🛡️ Armadura: {{ player.defense }}</p>
-                <button class="btn-medieval btn-ver">Ver Información</button>
-            </div>
-        {% endfor %}
-    </div>
+<div class="tablero">
+    {% for player in players %}
+        <div class="carta">
+            <img src="{{ url_for('static', filename='img/character/' + loop.index|string + '.png') }}" alt="{{ player.name }}" loading="lazy">
+            <h3>{{ player.name }}</h3>
+            <p>Numero del jugador: {{ player.id }}</p>
+            <p>❤️ Vida: {{ player.life }}</p>
+            <p>🔮 Maná: {{ player.mana }}</p>
+            <p>🛡️ Armadura: {{ player.armor }}</p>
+            
+            <!-- Botón para editar jugador -->
+             <br>
+            <a href="{{ url_for('edit_player', player_id=player.id) }}" class="btn-medieval btn-ver">Editar</a>
+        </div>
+    {% endfor %}
+</div>
 
     <!-- ESCENARIO -->
     <div class="escenario">
