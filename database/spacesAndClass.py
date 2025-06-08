@@ -118,7 +118,6 @@ def create_a_new_races(data):
     finally:
         conn.close()
 
-
 def edit_race(race_id, data):
     conn = sqlite3.connect(path_db)
     cursor = conn.cursor()

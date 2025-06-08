@@ -1,27 +1,122 @@
+<div id="create-mission" class="form">
+  <h2>Crear Misión</h2>
+  <hr>
+  <form id="form-create-mission">
+    <label for="mission_name">Nombre:</label>
+    <input type="text" id="mission_name" name="name" placeholder="Ej: Caza de Bestia" required>
+    <br><br>
+
+    <label for="mission_location">Ubicación (ID):</label>
+    <input type="number" id="mission_location" name="location_id" placeholder="Ej: 1" required>
+    <br><br>
+
+    <label for="mission_reward">Recompensa:</label>
+    <input type="text" id="mission_reward" name="reward" placeholder="Ej: 100 Oro" required>
+    <br><br>
+
+    <button type="submit" class="btn-medieval btn-add">Guardar Misión</button>
+  </form>
+</div>
 <div class="table-wrapper">
-  <table class="table-retro">
+  <table class="table-retro" id="missions-table">
     <thead>
       <tr>
+        <th>ID</th>
         <th>Nombre</th>
         <th>Ubicación</th>
         <th>Recompensa</th>
-        <th>Dificultad</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Caza de Bestia</td>
-        <td>Bosque de los Susurros</td>
-        <td>150 Oro</td>
-        <td>Media</td>
-      </tr>
-      <tr>
-        <td>El Pergamino Perdido</td>
-        <td>Ruinas de Eldamar</td>
-        <td>200 Oro + Hechizo Raro</td>
-        <td>Alta</td>
-      </tr>
-      <!-- Más misiones aquí -->
+      {% for mission in missions %}
+        <tr id="mission_{{ mission.id }}">
+          <td>{{ mission.id }}</td>
+          <td class="mission-name">{{ mission.name }}</td>
+          <td class="mission-location">{{ mission.location }}</td>
+          <td class="mission-reward">{{ mission.reward }}</td>
+          <td>
+            <button class="btn-medieval btn-eliminar" onclick="mission_delete('{{ mission.id }}')">Eliminar</button>
+          </td>
+        </tr>
+      {% endfor %}
     </tbody>
   </table>
 </div>
+
+
+
+
+<script>
+document.getElementById('form-create-mission').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const data = {
+    name: document.getElementById('mission_name').value,
+    location_id: parseInt(document.getElementById('mission_location').value),
+    reward: document.getElementById('mission_reward').value
+  };
+
+  const response = await fetch('/create-mission', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+
+  const result = await response.json();
+  addMissionToTable(result.id, data);
+  e.target.reset();
+});
+
+function addMissionToTable(id, data) {
+  const table = document.querySelector('#missions-table tbody');
+  const row = document.createElement('tr');
+  row.id = `mission_${id}`;
+  row.innerHTML = `
+    <td>${id}</td>
+    <td>${data.name}</td>
+    <td>${data.location_id}</td>
+    <td>${data.reward}</td>
+    <td>
+      <button class="btn-medieval btn-eliminar" onclick="mission_delete(${id})">Eliminar</button>
+    </td>
+  `;
+  table.appendChild(row);
+}
+
+async function mission_edit(id) {
+  const row = document.getElementById(`mission_${id}`);
+  const name = prompt("Nuevo nombre:", row.children[1].textContent);
+  const location = prompt("Nueva ubicación (ID):", row.children[2].textContent);
+  const reward = prompt("Nueva recompensa:", row.children[3].textContent);
+
+  if (name && location && reward) {
+    const response = await fetch(`/update-mission/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, location_id: parseInt(location), reward })
+    });
+
+    const result = await response.json();
+    if (result.success) {
+      row.children[1].textContent = name;
+      row.children[2].textContent = location;
+      row.children[3].textContent = reward;
+    } else {
+      alert("Error al editar misión.");
+    }
+  }
+}
+
+async function mission_delete(id) {
+  if (confirm("¿Estás seguro de que deseas eliminar esta misión?")) {
+    const response = await fetch(`/delete-mission/${id}`, { method: 'DELETE' });
+    const result = await response.json();
+    if (result.success) {
+      document.getElementById(`mission_${id}`).remove();
+    } else {
+      alert("Error al eliminar misión.");
+    }
+  }
+}
+</script>
